@@ -406,5 +406,5 @@ app.get('/health', (req, res) => {
 const PORT = process.env.PORT || 3001
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running at http://192.168.1.9:${PORT}`)
+    console.log(`Server running at ${PORT}`)
 })
