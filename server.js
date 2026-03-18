@@ -17,11 +17,11 @@ const ai = new GoogleGenAI({
 // ─────────────────────────────────────────────
 const PLANS = {
     free: {
-        dailyTokenLimit: 3_000,   // ~30K tokens/day for free (ad) users
+        dailyTokenLimit: 30_000,   // ~30K tokens/day for free (ad) users
         label: 'Free'
     },
     pro_monthly: {
-        dailyTokenLimit: 100_000,  // ₹149/month
+        dailyTokenLimit: 100_000,  // 0.99$/month
         label: 'Pro Monthly'
     },
 }
@@ -404,6 +404,18 @@ app.get('/health', (req, res) => {
 })
 
 const PORT = process.env.PORT || 3001
+
+// Self-ping to prevent Render free tier sleep
+const SELF_URL = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`
+
+setInterval(async () => {
+    try {
+        await fetch(`${SELF_URL}/health`)
+        console.log('[Keep-alive] Pinged /health')
+    } catch (e) {
+        console.log('[Keep-alive] Ping failed:', e.message)
+    }
+}, 14 * 60 * 1000) // every 14 minutes
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running at ${PORT}`)
