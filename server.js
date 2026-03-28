@@ -17,11 +17,11 @@ const ai = new GoogleGenAI({
 // ─────────────────────────────────────────────
 const PLANS = {
     free: {
-        dailyTokenLimit: 30_000,   // ~30K tokens/day for free (ad) users
+        dailyTokenLimit: 15_000,   // ~30K tokens/day for free (ad) users
         label: 'Free'
     },
     pro_monthly: {
-        dailyTokenLimit: 100_000,  // 0.99$/month
+        dailyTokenLimit: 50_000,  // 0.99$/month
         label: 'Pro Monthly'
     },
 }
